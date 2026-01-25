@@ -1,5 +1,9 @@
 /* Fluid Cursor & Text Effects */
 document.addEventListener('DOMContentLoaded', () => {
+    // Check for pointer capability (Mouse vs Touch)
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouchDevice) return; // Exit if touch device
+
     // Create cursor elements
     const cursorDot = document.createElement('div');
     cursorDot.classList.add('cursor-dot');

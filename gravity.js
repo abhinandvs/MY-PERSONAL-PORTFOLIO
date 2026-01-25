@@ -60,10 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function createShapes() {
         const shapes = [];
         const width = window.innerWidth;
-        const height = window.innerHeight;
-
         // EXTREME DENSITY - Increased for fluid effect
-        const count = 4500;
+        // Optimization for Mobile: Reduce count significantly
+        const isMobile = window.innerWidth < 768;
+        const count = isMobile ? 150 : 4500; // Reduced to 150 for mobile performance
 
         for (let i = 0; i < count; i++) {
             const x = Math.random() * width;
