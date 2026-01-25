@@ -1107,6 +1107,14 @@ p {
     }
 
     /* Navigation - Floating Card Style */
+    .nav-container {
+        position: relative;
+        flex-direction: row;
+        justify-content: center;
+        padding-top: 10px;
+        /* Adjust if needed */
+    }
+
     .nav-list {
         display: flex;
         /* Always flex, hide via opacity/visibility for animation */
@@ -1150,7 +1158,11 @@ p {
         display: block;
         z-index: 2000;
         /* Ensure strictly above the list */
-        position: relative;
+        position: absolute;
+        right: 0;
+        left: auto;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     /* Grids to Single Column */
