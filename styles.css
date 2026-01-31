@@ -1258,27 +1258,45 @@ body::before {
     .mandala-decoration {
         display: block;
         opacity: 0.8;
-        /* Restored clarity */
-        width: 50px;
-        /* Reduced width */
-        height: 100px;
+        width: 60px;
+        /* Adjusted width */
+        height: 220px;
+        /* Increased height to encompass the text block */
         z-index: 0;
+        top: 60%;
+        /* Adjusted top to center around the paragraph mostly */
+        transform: translateY(-50%);
     }
 
     .about-text {
         position: relative;
         z-index: 2;
-        padding: 0 25px;
-        /* Prevent overlap */
+        padding: 0 35px;
+        /* Padding to prevent text touching mandalas */
     }
 
     .about-text h2 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+        letter-spacing: 2px;
     }
 
     .about-text h3 {
-        font-size: 1.1rem;
-        line-height: 1.4;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: var(--primary-purple);
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+
+    .about-text p {
+        font-size: 0.85rem;
+        /* Reduced size as requested */
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: var(--text-muted);
     }
 
     .timeline::after {
@@ -1474,11 +1492,12 @@ body::before {
     /* Cards in Horizontal Scroll */
     .skills-grid>a,
     .project-card {
-        flex: 0 0 85%;
-        /* Show 85% of card to hint scroll */
-        max-width: 85%;
-        scroll-snap-align: center;
-        width: 85%;
+        flex: 0 0 75%;
+        /* Reduced to 75% for better 'peek' of next card */
+        max-width: 75%;
+        scroll-snap-align: start;
+        /* Align to start for natural reading flow */
+        width: 75%;
     }
 
     /* Since Skills are wrapped in <a> tags, ensure card inside fills it */
@@ -1555,11 +1574,360 @@ body::before {
     .footer-socials a {
         margin: 0 8px;
     }
+
+    /* Mobile Popup Optimization */
+    /* Mobile Popup Optimization - Fullscreen */
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border-radius: 0;
+        margin: 0;
+        top: 0;
+        padding: 60px 20px 30px 20px;
+        /* More top padding for close button */
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* Ensure content starts at top */
+    }
+
+    .close-modal {
+        top: 15px;
+        right: 20px;
+        font-size: 1.8rem;
+    }
+
+    /* Mobile Popup Content Overrides */
+    .popup-skill-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 cols on mobile */
+        gap: 10px;
+    }
+
+    .popup-skill-item {
+        padding: 10px;
+    }
+
+    .popup-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        /* Smaller thumbnails */
+        gap: 8px;
+    }
+
+    .product-item {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .product-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    /* Mobile Popup Typography */
+    #skill-modal-body i[style*="font-size: 3rem"] {
+        font-size: 2.2rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    #skill-modal-body h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .product-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    /* Mobile Popup Typography */
+    #skill-modal-body i[style*="font-size: 3rem"] {
+        font-size: 2.2rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    #skill-modal-body h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    #skill-modal-body p {
+        font-size: 0.9rem !important;
+        margin-bottom: 15px !important;
+        line-height: 1.5;
+    }
 }
 
-/* Animations */
-/* refined Smooth Animations */
-/* refined Smooth Animations */
+/* --- FUTURE OPTIMIZATIONS --- */
+
+/* 1. Global Polish */
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    /* Mobile App Feel */
+}
+
+/* Custom Scrollbar - Futuristic Minimal */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(123, 44, 191, 0.3);
+    /* Low opacity purple */
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(123, 44, 191, 0.8);
+}
+
+/* 2. Living Gradient Text Animation */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.section-header h2,
+.hero h1 span,
+#skill-modal-body h2 {
+    background-size: 200% auto;
+    animation: gradientFlow 5s ease infinite;
+}
+
+/* 3. Liquid Button Effect */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(123, 44, 191, 0.4);
+    letter-spacing: 1px;
+}
+
+/* 4. Staggered Entrance Animations */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply trigger class to container */
+.animate-in .gallery-item,
+.animate-in .product-item,
+.animate-in .popup-skill-item,
+.animate-in h2,
+.animate-in p,
+.animate-in .btn-primary,
+.animate-in i.fa-instagram,
+.animate-in i.fa-rocket,
+.animate-in i.fa-microchip {
+    opacity: 0;
+    /* Hidden initially */
+    animation: slideUpFade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Stagger Delays */
+.animate-in>*:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.animate-in>*:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.animate-in>*:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.animate-in>*:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* Deep stagger for lists/grids */
+.animate-in .popup-gallery>*:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.animate-in .popup-gallery>*:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.animate-in .popup-gallery>*:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.animate-in .popup-gallery>*:nth-child(4) {
+    animation-delay: 0.35s;
+}
+
+.animate-in .popup-gallery>*:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+/* ... continue automatically with css preprocessor or keep simple manual list */
+
+.animate-in .product-list>*:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.animate-in .product-list>*:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.animate-in .product-list>*:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.animate-in .popup-skill-grid>*:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.animate-in .popup-skill-grid>*:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.animate-in .popup-skill-grid>*:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.animate-in .popup-skill-grid>*:nth-child(4) {
+    animation-delay: 0.35s;
+}
+
+.animate-in .popup-skill-grid>*:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.animate-in .popup-skill-grid>*:nth-child(6) {
+    animation-delay: 0.45s;
+}
+
+/* Navigation Menu Modal Styling */
+.nav-menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 30px;
+    width: 100%;
+}
+
+.menu-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    text-decoration: none;
+    position: relative;
+    opacity: 0;
+    /* Hidden for animation */
+    transition: color 0.3s;
+}
+
+.menu-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 50%;
+    background: linear-gradient(90deg, #FFD700, #7B2CBF);
+    transition: width 0.3s ease, left 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.menu-link:hover {
+    color: var(--primary-color);
+}
+
+.menu-link:hover::after {
+    width: 100%;
+    left: 50%;
+    /* Keep centered */
+}
+
+/* Staggered Animation for Menu */
+.animate-in .menu-link {
+    animation: slideUpFade 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-in .menu-link:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.animate-in .menu-link:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.animate-in .menu-link:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.animate-in .menu-link:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* Ensure modal content for Tools is centered and full */
+#tools-modal .modal-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Base Reveal Class */
 .reveal,
 .reveal-up,
@@ -1837,6 +2205,123 @@ img,
     /* Contain inner effects */
 }
 
+/* Popup Content Styles */
+.popup-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+    max-height: 400px;
+    /* Scrollable area */
+    overflow-y: auto;
+    padding-right: 5px;
+    /* Space for scrollbar */
+}
+
+.gallery-item {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 12px;
+    gap: 15px;
+    text-align: left;
+    transition: transform 0.2s;
+}
+
+.product-item:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.product-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-purple);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.product-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.product-info p {
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.popup-skill-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.popup-skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 15px;
+    border-radius: 12px;
+    gap: 10px;
+    transition: transform 0.2s;
+}
+
+.popup-skill-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.popup-skill-item i {
+    font-size: 2rem;
+    color: var(--text-main);
+}
+
+.popup-skill-item span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
 /* Shine overlay on glass */
 .modal-content::before {
     content: '';
@@ -1913,8 +2398,21 @@ img,
     transform: scale(1.1);
 }
 
-.tool-item span {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-muted);
+/* Small Mobile Optimization */
+@media (max-width: 380px) {
+    .menu-link {
+        font-size: 1.8rem;
+        /* Smaller text for compact screens */
+    }
+
+    .nav-menu-content {
+        gap: 20px;
+        /* Tighter spacing */
+    }
+
+    .close-modal {
+        top: 25px;
+        /* Safer distance from top corner */
+        right: 25px;
+    }
 }

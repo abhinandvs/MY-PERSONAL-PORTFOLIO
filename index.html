@@ -39,7 +39,7 @@
                     <li><a href="#experience" class="nav-link">Experience</a></li>
 
                 </ul>
-                <div class="menu-toggle">
+                <div class="menu-toggle" id="tools-trigger">
                     <i class="fas fa-bars"></i>
                 </div>
             </nav>
@@ -78,7 +78,7 @@
 
                 <div class="about-text reveal-left">
                     <h2><span class="text-yellow">ABHINAND</span></h2>
-                    <h3>I am passionate about Electronics, photography,Art, and Technology.</h3>
+                    <h3>I AM PASSIONATE ABOUT ELECTRONICS, PHOTOGRAPHY, ART, AND TECHNOLOGY.</h3>
                     <p>
                         With a strong foundation in Electronics and Communication Engineering,
                         My journey involves a blend of technical precision and creative exploration in photography and
@@ -113,7 +113,7 @@
                 </div>
                 <div class="skills-grid">
                     <!-- 1. Creative Vision (Merged Memories & Art) -->
-                    <a href="memories.html" style="text-decoration: none; display: block;">
+                    <div class="skill-card-wrapper" data-popup="memories" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom">
                             <div class="spotlight-overlay"></div>
                             <i class="fas fa-camera"></i>
@@ -123,10 +123,10 @@
                             </div>
                             <p>Capturing life's moments and unique visual stories.</p>
                         </div>
-                    </a>
+                    </div>
 
                     <!-- 3. My Tech Products (New) -->
-                    <a href="tech-products.html" style="text-decoration: none; display: block;">
+                    <div class="skill-card-wrapper" data-popup="tech" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom" style="transition-delay: 0.2s;">
                             <div class="spotlight-overlay"></div>
                             <i class="fas fa-rocket"></i>
@@ -136,10 +136,10 @@
                             </div>
                             <p>Innovative solutions and embedded systems designed to solve real-world problems.</p>
                         </div>
-                    </a>
+                    </div>
 
                     <!-- 4. Technical Skill -->
-                    <a href="technical-skills.html" style="text-decoration: none; display: block;">
+                    <div class="skill-card-wrapper" data-popup="skills" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom" style="transition-delay: 0.3s;">
                             <div class="spotlight-overlay"></div>
                             <i class="fas fa-microchip"></i>
@@ -149,7 +149,7 @@
                             </div>
                             <p>Electronics, IoT, Wireless Comm, & Embedded Systems Engineering.</p>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -274,12 +274,48 @@
         </div>
     </footer>
 
+    <!-- Skill & Content Popup Modal -->
+    <div id="skill-modal" class="modal">
+        <div class="modal-backdrop-anim">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="modal-content">
+            <span class="close-modal close-skill-modal">&times;</span>
+            <div id="skill-modal-body">
+                <!-- Dynamic Content Loaded Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Menu Modal (Tools Modal) -->
+    <div id="tools-modal" class="modal">
+        <div class="modal-backdrop-anim">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="modal-content flex-center">
+            <span class="close-modal close-tools-modal">&times;</span>
+            <div class="nav-menu-content">
+                <a href="#about" class="menu-link">ABOUT</a>
+                <a href="#skills" class="menu-link">SKILLS</a>
+                <a href="#projects" class="menu-link">PROJECTS</a>
+                <a href="#experience" class="menu-link">EXPERIENCE</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="script.js"></script>
     <script src="text-effects.js"></script>
     <script src="spotlight.js"></script>
     <script src="animations.js"></script>
+    <script src="tools-popup.js"></script>
+    <script src="skill-popup.js"></script>
 
 </body>
 
-</html>
+</html>,

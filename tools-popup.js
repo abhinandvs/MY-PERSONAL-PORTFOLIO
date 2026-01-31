@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
         toolsTrigger.addEventListener('click', () => {
             toolsModal.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            // Trigger Animation
+            const content = toolsModal.querySelector('.modal-content');
+            if (content) {
+                content.classList.remove('animate-in');
+                void content.offsetWidth; // Force Reflow
+                setTimeout(() => content.classList.add('animate-in'), 10);
+            }
         });
     }
 
