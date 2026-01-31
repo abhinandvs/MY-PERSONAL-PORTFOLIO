@@ -338,6 +338,24 @@ p {
     z-index: 0;
 }
 
+/* Relocated Pattern to Global Background to appear behind Hero */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('assets/cross_pattern.svg');
+    background-size: 40px 40px;
+    /* Small grid size */
+    background-repeat: repeat;
+    opacity: 0.6;
+    /* Visible but subtle */
+    z-index: -1;
+    pointer-events: none;
+}
+
 .hero-overlay {
     display: none;
 }
@@ -560,6 +578,36 @@ p {
     /* Subtle background icon */
 }
 
+/* Mandala Decorations */
+.mandala-decoration {
+    position: absolute;
+    width: 200px;
+    /* Adjusted width for vertical half */
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    opacity: 0.8;
+    /* Increased from 0.15 */
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    filter: contrast(1.5);
+    /* Added contrast */
+}
+
+.mandala-decoration.left {
+    left: 0;
+    background-image: url('assets/mandala_left.png');
+    background-position: left center;
+}
+
+.mandala-decoration.right {
+    right: 0;
+    background-image: url('assets/mandala_right.png');
+    background-position: right center;
+}
+
 /* Skills Section */
 /* Skills Section */
 /* Skills Section */
@@ -625,82 +673,125 @@ p {
     margin-right: auto;
 }
 
-.skill-card {
-    /* Modern Premium Card */
+/* Spotlight Card System */
+.spotlight-card {
     background: rgba(255, 255, 255, 0.85);
-    /* Slightly more transparent */
-    backdrop-filter: blur(12px);
-    padding: 50px 30px;
-    /* More vertical padding */
-    text-align: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 30px;
-    /* softer rounded corners */
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    /* Crisp white border */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-    /* Softer, deeper shadow */
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    /* Silkier transition */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 50px 30px;
+    height: 100%;
 
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
+    text-align: center;
+
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    /* Mouse tracking vars - set by JS */
+    --mouse-x: 50%;
+    --mouse-y: 50%;
 }
 
-.skill-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
-    background: #ffffff;
-    border-color: #fff;
+.spotlight-card::before {
+    /* Border Glow Effect */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px;
+    padding: 2px;
+    /* Border width */
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 183, 3, 0.6),
+            transparent 40%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    /* Hidden by default */
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
 }
 
-/* Icon Bubble Effect */
-.skill-card i {
-    font-size: 2rem;
+.spotlight-overlay {
+    /* Inner Spotlight Glow */
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 183, 3, 0.06),
+            transparent 40%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Hover States */
+.spotlight-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.spotlight-card:hover::before,
+.spotlight-card:hover .spotlight-overlay {
+    opacity: 1;
+}
+
+/* Icon & Content Styles */
+.spotlight-card i {
+    font-size: 2.5rem;
     color: var(--primary-color);
     margin-bottom: 25px;
+    z-index: 3;
     position: relative;
-    z-index: 2;
-
-    /* Bubble Background */
-    background: rgba(255, 183, 3, 0.1);
-    /* Light Yellow Tint */
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: var(--transition);
+    transition: transform 0.4s ease;
 }
 
-.skill-card:hover i {
-    background: var(--primary-color);
-    color: #fff;
-    transform: scale(1.1) rotate(5deg);
-    -webkit-text-fill-color: #fff;
-    /* Override gradient text */
+.spotlight-card:hover i {
+    transform: scale(1.2) rotate(5deg);
+    color: var(--primary-purple);
 }
 
-.skill-card h3 {
+.spotlight-card h3 {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 15px;
-    color: var(--text-main);
-    letter-spacing: 0.5px;
+    z-index: 3;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.spotlight-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+    z-index: 3;
+    position: relative;
 }
 
 .skill-bar-container {
     width: 60%;
     height: 4px;
     background: rgba(0, 0, 0, 0.05);
-    /* Subtle track */
     margin: 10px 0 20px 0;
     border-radius: 2px;
+    z-index: 3;
+    position: relative;
 }
 
 .skill-bar {
@@ -708,20 +799,19 @@ p {
     border-radius: 2px;
 }
 
-.skill-card p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 0;
-}
-
 /* Projects Section */
 /* Projects Section */
 .projects {
-    background-color: var(--bg-dark);
-    /* Dark background */
+    background-color: #FFFFFF;
+    /* Pure White Background */
+    background-image: radial-gradient(#000000 1.5px, transparent 1.5px);
+    /* CSS generated black dots */
+    background-size: 30px 30px;
+    /* Adjust spacing */
+    background-position: 0 0;
     margin-bottom: 50px;
-    /* Add space between projects and next section */
+    padding-bottom: 150px;
+    /* Added significant bottom padding to avoid border touch */
 }
 
 .projects-grid {
@@ -735,7 +825,8 @@ p {
 }
 
 .project-card {
-    width: 260px;
+    width: 240px;
+    /* Reduced width from 260px */
     /* Reduced size as requested */
     background: var(--bg-card);
     overflow: hidden;
@@ -1230,85 +1321,88 @@ p {
 
 /* Animations */
 /* refined Smooth Animations */
+/* refined Smooth Animations */
+/* Base Reveal Class */
+.reveal,
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-zoom {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* iOS Smooth Easing */
+}
+
+/* 1. Fade Up (Default) */
+.reveal,
+.reveal-up {
+    transform: translateY(50px);
+}
+
+.reveal.active,
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 2. Slide from Left */
+.reveal-left {
+    transform: translateX(-50px);
+}
+
+.reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* 3. Slide from Right */
+.reveal-right {
+    transform: translateX(50px);
+}
+
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* 4. Zoom In */
+.reveal-zoom {
+    transform: scale(0.9);
+}
+
+.reveal-zoom.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Specific Staggers for Groups */
+.reveal-group>*:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.reveal-group>*:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.reveal-group>*:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.reveal-group>*:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* Existing smooth specific (keeping for backward compatibility if used) */
 .reveal-smooth {
     opacity: 0;
-    transform: translateY(40px) scale(0.98);
-    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-    /* Apple-style ease out */
-    will-change: transform, opacity;
+    transform: translateY(30px) scale(0.98);
+    transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .reveal-smooth.active {
     opacity: 1;
     transform: translateY(0) scale(1.0);
-}
-
-/* Stagger Delays */
-.delay-1 {
-    transition-delay: 0.1s;
-}
-
-.delay-2 {
-    transition-delay: 0.2s;
-}
-
-.delay-3 {
-    transition-delay: 0.3s;
-}
-
-.delay-4 {
-    transition-delay: 0.4s;
-}
-
-/* Bottom Image Section */
-.bottom-image-container {
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    /* Remove potential gap below image */
-}
-
-.full-width-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    /* Ensures it covers the area if we set height, mostly keeps aspect ratio here */
-}
-
-
-/* Text Hover Animation */
-.hover-animate {
-    color: var(--primary-purple) !important;
-    transform: scale(1.02);
-    text-shadow: 0 4px 10px rgba(222, 60, 99, 0.2);
-    /* Removed display: inline-block to prevent layout shifts on blocks */
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Bouncy snap */
-    cursor: default;
-    will-change: transform;
-    backface-visibility: hidden;
-}
-
-/* Specific fix for inline elements that need inline-block to transform */
-span.hover-animate,
-a.hover-animate,
-i.hover-animate,
-strong.hover-animate {
-    display: inline-block;
-}
-
-/* Scroll Reveal Animation */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    /* Smooth cubic bezier */
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Ensure 3D tilt works smoothly */
@@ -1391,8 +1485,198 @@ img,
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-img:hover,
-.about-visual:hover i,
-.skill-card:hover i {
+/* Tools Modal */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Backdrop dim */
+    backdrop-filter: blur(5px);
+
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Liquid Animation Elements */
+.modal-backdrop-anim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    /* Behind content */
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    /* Liquid blur */
+    opacity: 0.6;
+    animation: floatBlob 10s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--primary-color);
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 350px;
+    height: 350px;
+    background: var(--primary-purple);
+    bottom: 20%;
+    right: 20%;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 300px;
+    height: 300px;
+    background: #00DBDE;
+    /* Teal/Blue accent */
+    bottom: 10%;
+    left: 30%;
+    animation-duration: 15s;
+}
+
+@keyframes floatBlob {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(30px, -50px) scale(1.1) rotate(20deg);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9) rotate(-10deg);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.25);
+    /* More transparent for glass effect */
+    backdrop-filter: blur(30px);
+    /* Stronger blur */
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Subtle border */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 50px;
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    overflow: hidden;
+    /* Contain inner effects */
+}
+
+/* Shine overlay on glass */
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.close-modal {
+    color: var(--text-muted);
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: color 0.3s;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--primary-purple);
+}
+
+.modal-content h2 {
+    font-family: var(--font-heading);
+    color: var(--text-main);
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Tools Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, background 0.3s;
+    cursor: default;
+}
+
+.tool-item:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.tool-item i {
+    font-size: 2.5rem;
+    color: var(--text-main);
+    transition: color 0.3s;
+}
+
+.tool-item:hover i {
+    color: var(--primary-color);
     transform: scale(1.1);
+}
+
+.tool-item span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
 }

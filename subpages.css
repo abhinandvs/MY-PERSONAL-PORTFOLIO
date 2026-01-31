@@ -1,0 +1,199 @@
+/* Shared Styles for Subpages */
+body {
+    background-color: #0a0a0c;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Page Header */
+.page-header {
+    padding: 120px 20px 60px;
+    text-align: center;
+    background: radial-gradient(circle at top, rgba(255, 183, 3, 0.1), transparent 70%);
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #FFB703, #DE3C63);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Navigation */
+.back-nav {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 100;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+}
+
+/* Tech Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+}
+
+.product-image {
+    height: 200px;
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image i {
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.product-details {
+    padding: 30px;
+}
+
+.product-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.product-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.specs-list {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.specs-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.specs-list li i {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+}
+
+.view-btn {
+    display: inline-block;
+    color: var(--primary-purple);
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* Skills Layout */
+.skills-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
+}
+
+.skill-category {
+    margin-bottom: 60px;
+}
+
+.category-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 20px;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.tech-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.tech-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tech-item i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.tech-item span {
+    display: block;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .products-grid {
+        padding: 0 20px 80px;
+    }
+}
