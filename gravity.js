@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // EXTREME DENSITY - Increased for fluid effect
         // Optimization for Mobile: Reduce count significantly
         const isMobile = window.innerWidth < 768;
-        const count = isMobile ? 150 : 4500; // Reduced to 150 for mobile performance
+        const count = isMobile ? 150 : 4000; // Reduced to 150 for mobile performance
 
         for (let i = 0; i < count; i++) {
             const x = Math.random() * width;

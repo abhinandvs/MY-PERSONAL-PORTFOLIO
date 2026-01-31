@@ -194,6 +194,23 @@ body {
     }
 
     .products-grid {
+        grid-template-columns: 1fr;
+        /* Stack vertically on mobile */
         padding: 0 20px 80px;
+    }
+
+    .skills-wrapper {
+        padding: 0 20px 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on small mobile */
     }
 }
