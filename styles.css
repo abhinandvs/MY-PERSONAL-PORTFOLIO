@@ -336,8 +336,8 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Gradient overlay for readability */
-    background: linear-gradient(to right, rgba(10, 10, 12, 0.8) 0%, rgba(10, 10, 12, 0.4) 50%, rgba(10, 10, 12, 0.1) 100%);
+    /* Gradient overlay for readability - Deep Purple Theme */
+    background: linear-gradient(to right, rgba(40, 5, 30, 0.9) 0%, rgba(40, 5, 30, 0.6) 50%, rgba(40, 5, 30, 0.1) 100%);
     z-index: 0;
 }
 
@@ -486,9 +486,9 @@ body::before {
         /* Adjust height for mobile */
     }
 
-    /* Gradient to make text readable against bottom of image */
+    /* Gradient to make text readable against bottom of image - Deep Purple Theme */
     .hero::before {
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+        background: linear-gradient(to top, rgba(40, 5, 30, 0.95) 0%, rgba(40, 5, 30, 0.7) 50%, transparent 100%);
     }
 
     .hero-container {
