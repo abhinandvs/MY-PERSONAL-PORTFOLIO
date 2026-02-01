@@ -1463,6 +1463,8 @@ body::before {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+        justify-content: flex-start;
+        /* Critical: ensure scroll starts from left */
         /* Critical: Prevent wrapping */
         overflow-x: auto;
         gap: 20px;
