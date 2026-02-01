@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile Menu Toggle
+    /* Mobile Menu Toggle - Disabled in favor of tools-popup.js full screen menu
     if (menuToggle) {
         menuToggle.addEventListener('click', () => {
             navList.classList.toggle('active');
@@ -59,8 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    */
 
-    // Close menu when clicking a link
+    /* Close menu when clicking a link - Disabled 
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (navList.classList.contains('active')) {
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    */
 
 
 

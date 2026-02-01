@@ -7,16 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Popup Content Data (Mini Landing Pages)
     const popupContent = {
         'memories': `
-            <i class="fab fa-instagram" style="font-size: 3rem; color: #E1306C; margin-bottom: 20px;"></i>
-            <h2>MEMORIES</h2>
-            <p style="color: var(--text-muted); margin-bottom: 30px;">
-                Capturing life's most beautiful moments through the lens. <br>
-                Explore my full visual portfolio on Instagram.
-            </p>
-            <div style="display: flex; gap: 15px; justify-content: center;">
-                <a href="https://www.instagram.com/_abhinand_vs" target="_blank" class="btn-primary">
-                    <i class="fab fa-instagram" style="margin-right: 8px;"></i> Visit Instagram
-                </a>
+            <div class="memories-content-wrapper">
+                <div class="memories-visuals">
+                    <div class="polaroid p1">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <div class="polaroid p2">
+                        <i class="fas fa-image"></i>
+                    </div>
+                </div>
+                <div class="memories-info">
+                    <h2 class="memories-title">Visual Stories</h2>
+                    <p class="memories-desc">
+                        Freezing time, one shutter at a time. A collection of moments, landscapes, and the raw beauty of life.
+                    </p>
+                    <a href="memories.html" class="btn-primary instagram-btn">
+                        <i class="fab fa-instagram"></i> View Gallery
+                    </a>
+                </div>
             </div>
         `,
         'tech': `

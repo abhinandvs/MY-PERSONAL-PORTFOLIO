@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toolsTrigger = document.getElementById('tools-trigger');
     const toolsModal = document.getElementById('tools-modal');
-    const closeModal = document.querySelector('.close-modal');
+    const closeModal = document.querySelector('.close-tools-modal');
 
     // Open Modal
     if (toolsTrigger) {
@@ -41,5 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && toolsModal.classList.contains('active')) {
             closeToolsModal();
         }
+    });
+
+    // Close Menu When Link is Clicked
+    const menuLinks = toolsModal.querySelectorAll('.menu-link');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', closeToolsModal);
     });
 });

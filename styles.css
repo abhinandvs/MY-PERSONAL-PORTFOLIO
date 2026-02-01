@@ -2205,6 +2205,44 @@ img,
     /* Contain inner effects */
 }
 
+/* Mobile Modal Adjustments */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 80%;
+        /* Reduced further */
+        max-width: 280px;
+        /* Reduced further */
+        padding: 20px 10px;
+        /* Tighter padding */
+        border-radius: 20px;
+        margin: auto;
+        /* Ensure flex centering */
+
+        /* Aspect Ratio & Scroll */
+        aspect-ratio: 3/4;
+        /* Standard Portrait Card Ratio */
+        height: auto;
+        overflow-y: auto;
+        /* Allow scroll if content is too long */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Try centering content vertically if possible */
+        align-items: center;
+
+        /* Hide Scrollbar */
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE 10+ */
+    }
+
+    .modal-content::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
+}
+
 /* Popup Content Styles */
 .popup-gallery {
     display: grid;
@@ -2414,5 +2452,391 @@ img,
         top: 25px;
         /* Safer distance from top corner */
         right: 25px;
+    }
+}
+
+/* =========================================
+   MOBILE MENU REDESIGN (TOOLS MODAL)
+   ========================================= */
+
+/* Full Screen Override */
+#tools-modal .modal-content {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: rgba(255, 249, 240, 0.4);
+    /* Warm light glass */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    transform: none !important;
+    /* Disable default scale transform */
+}
+
+/* Ensure modal touches edges */
+#tools-modal {
+    padding: 0 !important;
+}
+
+/* Menu Container */
+#tools-modal .nav-menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Menu Links */
+#tools-modal .menu-link {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    /* Very Large */
+    color: var(--text-main);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 2px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    /* Hidden initially for animation */
+    position: relative;
+}
+
+/* Active State for Links (Animation) */
+#tools-modal.active .menu-link {
+    animation: menuReveal 0.8s forwards ease-out;
+}
+
+#tools-modal.active .menu-link:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+#tools-modal.active .menu-link:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+#tools-modal.active .menu-link:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+#tools-modal.active .menu-link:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes menuReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* Hover Effects */
+#tools-modal .menu-link:hover {
+    color: var(--primary-purple);
+    transform: scale(1.1) skewX(-5deg);
+    /* Dynamic skew */
+    letter-spacing: 5px;
+    text-shadow: 0 10px 20px rgba(222, 60, 99, 0.2);
+}
+
+/* Close Button Redesign */
+#tools-modal .close-tools-modal {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 3rem;
+    color: var(--primary-purple);
+    /* Make it distinct */
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    z-index: 10001;
+    width: auto;
+    height: auto;
+    background: none;
+    float: none;
+    /* override default */
+    display: block;
+}
+
+#tools-modal .close-tools-modal:hover {
+    transform: rotate(90deg) scale(1.2);
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+/* Mobile responsive adjustments for the menu itself */
+@media screen and (max-width: 480px) {
+    #tools-modal .menu-link {
+        font-size: 2.5rem;
+        gap: 30px;
+    }
+
+    #tools-modal .close-tools-modal {
+        top: 25px;
+        right: 25px;
+        font-size: 2.5rem;
+    }
+}
+
+/* Specific About Section Font Size Adjustment for Mobile */
+@media screen and (max-width: 768px) {
+    .about-text {
+        padding: 0 95px !important;
+        /* Force text between the 100px mandalas */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .about-text p {
+        font-size: 0.7rem !important;
+        /* Reduced to solve overlap */
+        line-height: 1.5;
+        padding: 0;
+        /* Container handles padding now */
+    }
+
+    .about-text h2 {
+        font-size: 1.5rem;
+        /* Reduced to solve overlap */
+    }
+
+    .about-text h3 {
+        font-size: 0.9rem;
+        /* Reduced to solve overlap */
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+
+    /* Enforce larger Mandala on mobile */
+    .mandala-decoration {
+        width: 100px !important;
+        height: 300px !important;
+        opacity: 0.9 !important;
+    }
+
+    /* Move icons down properly below the mandala space */
+    .social-links {
+        margin-top: 20px !important;
+        position: relative;
+        z-index: 5;
+    }
+}
+
+/* =========================================
+   MEMORIES MODAL REDESIGN
+   ========================================= */
+
+.memories-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+}
+
+.memories-visuals {
+    position: relative;
+    width: 200px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.polaroid {
+    width: 120px;
+    height: 150px;
+    background: #fff;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+    /* Space for polaroid caption area */
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.polaroid i {
+    font-size: 2rem;
+    color: #ddd;
+}
+
+/* Initial "stacked" state */
+.polaroid.p1 {
+    transform: rotate(-5deg);
+    z-index: 1;
+    opacity: 0;
+}
+
+.polaroid.p2 {
+    transform: rotate(5deg);
+    z-index: 2;
+    opacity: 0;
+}
+
+/* Animate in */
+.modal.active .polaroid.p1 {
+    opacity: 1;
+    transform: rotate(-10deg) translate(-20px, 10px);
+}
+
+.modal.active .polaroid.p2 {
+    opacity: 1;
+    transform: rotate(10deg) translate(20px, -5px);
+}
+
+/* Decoration for photos */
+.polaroid::after {
+    content: '';
+    width: 80%;
+    height: 70%;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    position: absolute;
+    top: 10px;
+    border-radius: 2px;
+}
+
+.memories-info {
+    text-align: center;
+    z-index: 10;
+}
+
+.memories-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+    background: var(--accent-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.memories-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+.instagram-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border: none;
+    color: white !important;
+    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+    padding: 12px 35px;
+}
+
+.instagram-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.4);
+}
+
+/* Mobile Tweak for Memories Modal */
+@media screen and (max-width: 480px) {
+    .memories-title {
+        font-size: 1.8rem;
+        /* Slightly smaller title too */
+    }
+
+    .memories-visuals {
+        transform: scale(0.75);
+        /* Reduced scale to fit smaller modal */
+        margin-bottom: -15px;
+        /* Pull content up a bit due to scale */
+    }
+
+    .memories-content-wrapper {
+        padding: 0;
+        gap: 20px;
+        /* Reduce gap */
+    }
+
+    .memories-desc {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+
+    /* NEW: Fix Tech Products Popup for Small Screens */
+    .product-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 0 5px;
+        /* Prevent edge touching */
+    }
+
+    .product-list .product-item {
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.5);
+        /* Lighter bg to see overlap if any */
+    }
+
+    .product-list .product-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .product-list .product-info h4 {
+        font-size: 0.95rem;
+        /* Smaller title */
+    }
+
+    .product-list .product-info p {
+        font-size: 0.75rem;
+        /* Smaller desc */
+    }
+
+    /* Ensure general modal headings scale down */
+    #skill-modal-body h2 {
+        font-size: 1.5rem !important;
+        /* Force smaller size for "MY TECH PRODUCTS" */
+        margin-bottom: 15px !important;
+    }
+
+    #skill-modal-body i.fa-rocket,
+    #skill-modal-body i.fa-microchip {
+        font-size: 2rem !important;
+        /* Smaller top icon */
+        margin-bottom: 10px !important;
+    }
+
+    /* Fix Close Button for Mobile Popup */
+    .close-modal {
+        position: absolute !important;
+        top: 10px !important;
+        right: 15px !important;
+        font-size: 1.8rem !important;
+        z-index: 100 !important;
+        background: transparent;
+        color: var(--text-muted);
     }
 }
