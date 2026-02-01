@@ -18,30 +18,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const navList = document.querySelector('.nav-list');
 
+    // Sticky Header (Lightweight check)
     window.addEventListener('scroll', () => {
-        // Sticky Header
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
+    }, { passive: true });
 
-        // ScrollSpy
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                current = section.getAttribute('id');
+    // ScrollSpy using IntersectionObserver (Performance Optimized)
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3 // Trigger when 30% of the section is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                // Remove active class from all links
+                navLinks.forEach(link => link.classList.remove('active'));
+                // Add active class to corresponding link
+                const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
             }
         });
+    }, observerOptions);
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-            }
-        });
+    sections.forEach(section => {
+        observer.observe(section);
     });
 
     /* Mobile Menu Toggle - Disabled in favor of tools-popup.js full screen menu

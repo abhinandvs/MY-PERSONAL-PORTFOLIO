@@ -165,8 +165,8 @@ p {
 .header.scrolled {
     background: rgba(255, 255, 255, 0.85);
     /* Stronger opacity on scroll */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 15px 0;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -898,14 +898,14 @@ body::before {
 .projects {
     background-color: #FFFFFF;
     /* Pure White Background */
-    background-image: radial-gradient(#000000 1.5px, transparent 1.5px);
-    /* CSS generated black dots */
+    background-image: radial-gradient(#111111 1.5px, transparent 1.5px);
+    /* slightly darker dots */
     background-size: 30px 30px;
-    /* Adjust spacing */
     background-position: 0 0;
     margin-bottom: 50px;
     padding-bottom: 150px;
-    /* Added significant bottom padding to avoid border touch */
+    position: relative;
+    z-index: 5;
 }
 
 .projects-grid {
@@ -919,15 +919,19 @@ body::before {
 }
 
 .project-card {
-    width: 240px;
-    /* Reduced width from 260px */
-    /* Reduced size as requested */
-    background: var(--bg-card);
+    width: 300px;
+    /* Increased width */
+    background: #FFFFFF;
+    /* Ensure solid white to block dots */
     overflow: hidden;
-    box-shadow: var(--shadow-soft);
-    transition: var(--transition);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    /* Clean "Pop" Shadow */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 24px;
+    /* Smooth corners */
+    position: relative;
+    z-index: 2;
 }
 
 .project-card:hover {
@@ -1466,6 +1470,8 @@ body::before {
         /* Padding bottom for scroll/shadow */
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        /* Explicitly allow horizontal pan */
         width: 100%;
         grid-template-columns: none;
         /* Reset grid */
@@ -1490,60 +1496,107 @@ body::before {
     }
 
     /* Cards in Horizontal Scroll */
-    .skills-grid>a,
+    /* Cards in Horizontal Scroll */
+    .skills-grid>div,
+    /* Wrapper for skill cards */
     .project-card {
-        flex: 0 0 75%;
-        /* Reduced to 75% for better 'peek' of next card */
-        max-width: 75%;
-        scroll-snap-align: start;
-        /* Align to start for natural reading flow */
-        width: 75%;
+        flex: 0 0 80%;
+        /* Wider cards on mobile for better readability */
+        max-width: 80%;
+        scroll-snap-align: center;
+        width: 80%;
+        margin-right: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        /* Remove fixed aspect ratio for projects to allow content flex */
+        min-height: 400px;
     }
 
-    /* Since Skills are wrapped in <a> tags, ensure card inside fills it */
-    .skills-grid>a {
-        text-decoration: none;
-        display: block;
+    .project-card {
+        aspect-ratio: auto;
+        /* Let content dictate or set fixed height */
+        height: auto;
     }
 
-    .skill-card,
-    .spotlight-card {
-        width: 100%;
+    /* Target the inner card to fill height */
+    .skill-card {
         height: 100%;
-        /* Ensure equal height */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        /* Distribute content nicely */
+        align-items: center;
+        padding: 20px 15px;
+        /* Adequate padding */
+        text-align: center;
     }
 
-    /* Section Spacing */
-    .section-padding {
-        padding: 60px 0;
+    .skill-card h3 {
+        margin: 10px 0;
+        font-size: 1.1rem;
     }
 
-    .about,
-    .skills {
-        padding-top: 40px;
-        min-height: auto !important;
-        display: block !important;
+    .skill-card p {
         margin: 0;
-        /* Remove negative margins */
-        border-radius: 0;
-        /* Rectangular sections */
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
 
-    .skills {
-        background-image: none;
-        /* Simplify background */
-        background-color: #FFF9F0;
-    }
-
-    .about {
-        padding-top: 40px !important;
-        padding-bottom: 40px;
-    }
-
-    .timeline {
-        margin-top: 30px;
+    .skill-card i {
+        margin-top: 5px;
+        font-size: 2.5rem;
+        /* Ensure icon size */
     }
 }
+
+/* Since Skills are wrapped in <a> tags, ensure card inside fills it */
+.skills-grid>a {
+    text-decoration: none;
+    display: block;
+}
+
+.skill-card,
+.spotlight-card {
+    width: 100%;
+    height: 100%;
+    /* Ensure equal height */
+}
+
+/* Section Spacing */
+.section-padding {
+    padding: 60px 0;
+}
+
+.about,
+.skills {
+    padding-top: 40px;
+    min-height: auto !important;
+    display: block !important;
+    margin: 0;
+    /* Remove negative margins */
+    border-radius: 0;
+    /* Rectangular sections */
+}
+
+.skills {
+    background-image: none;
+    /* Simplify background */
+    background-color: #FFF9F0;
+}
+
+.about {
+    padding-top: 40px !important;
+    padding-bottom: 40px;
+}
+
+.timeline {
+    margin-top: 30px;
+}
+
 
 @media (max-width: 480px) {
     .header {
@@ -2219,15 +2272,15 @@ img,
         /* Ensure flex centering */
 
         /* Aspect Ratio & Scroll */
-        aspect-ratio: 3/4;
-        /* Standard Portrait Card Ratio */
+        aspect-ratio: 4/5;
+        /* Portrait 5:4 Ratio */
         height: auto;
         overflow-y: auto;
         /* Allow scroll if content is too long */
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        /* Try centering content vertically if possible */
+        justify-content: space-evenly;
+        /* Better text distribution */
         align-items: center;
 
         /* Hide Scrollbar */
@@ -2593,9 +2646,25 @@ img,
     }
 
     #tools-modal .close-tools-modal {
-        top: 25px;
-        right: 25px;
+        position: fixed;
+        /* Fix to viewport */
+        top: 30px;
+        right: 30px;
         font-size: 2.5rem;
+        z-index: 10005;
+        /* Highest priority */
+        opacity: 1;
+        /* Fully visible */
+        color: var(--text-main);
+        /* Ensure contrast */
+        background: rgba(255, 255, 255, 0.2);
+        /* Subtle backing to ensure visibility */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -2637,7 +2706,7 @@ img,
 
     /* Move icons down properly below the mandala space */
     .social-links {
-        margin-top: 20px !important;
+        margin-top: 45px !important;
         position: relative;
         z-index: 5;
     }

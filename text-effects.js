@@ -1,15 +1,17 @@
 /* Text Hover Animations */
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all text-heavy elements
-    const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, span, li, button, .btn, .logo');
+    // Use Event Delegation for better performance
+    const relevantTags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'A', 'SPAN', 'LI', 'BUTTON'];
 
-    textElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            el.classList.add('hover-animate');
-        });
+    document.body.addEventListener('mouseover', (e) => {
+        if (relevantTags.includes(e.target.tagName) || e.target.classList.contains('btn') || e.target.classList.contains('logo')) {
+            e.target.classList.add('hover-animate');
+        }
+    });
 
-        el.addEventListener('mouseleave', () => {
-            el.classList.remove('hover-animate');
-        });
+    document.body.addEventListener('mouseout', (e) => {
+        if (relevantTags.includes(e.target.tagName) || e.target.classList.contains('btn') || e.target.classList.contains('logo')) {
+            e.target.classList.remove('hover-animate');
+        }
     });
 });
