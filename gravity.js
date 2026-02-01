@@ -161,17 +161,21 @@ document.addEventListener('DOMContentLoaded', () => {
     Runner.run(runner, engine);
 
     // Smart Pause: Stop physics while scrolling to save CPU
+    // Smart Pause: Stop physics AND Rendering while scrolling to save CPU/GPU
     let scrollTimeout;
     window.addEventListener('scroll', () => {
-        // Pause physics immediately when scroll starts
+        // Pause physics immediately
         if (runner.enabled) {
             runner.enabled = false;
+            // Also stop the render loop to prevent canvas repainting
+            Render.stop(render);
         }
 
         // Debounce restart
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             runner.enabled = true;
+            Render.run(render); // Resume rendering
         }, 150); // Resume 150ms after scroll stops
     }, { passive: true });
 
