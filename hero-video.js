@@ -106,8 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     }
 
+    // Animation Loop Control
+    let isAnimating = false;
+
     // Animation Loop
     function animate(timestamp) {
+        if (!isAnimating) return; // Stop if not visible
+
         if (!lastTime) lastTime = timestamp;
         const elapsed = timestamp - lastTime;
 
@@ -123,9 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 lastTime = timestamp - (elapsed % interval);
             }
         } else {
-            // Optional: Draw a loading indicator or poster frame here
-            // For now, we wait.
-            // Maybe draw the first image if it's available?
+            // Fallback for loading state
             if (images[0] && images[0].complete) {
                 drawImageCover(context, images[0]);
             }
@@ -133,4 +136,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         requestAnimationFrame(animate);
     }
+
+    // Optimize: Only animate when visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!isAnimating && imagesLoaded === frameCount) {
+                    isAnimating = true;
+                    requestAnimationFrame(animate);
+                } else if (!isAnimating) {
+                    // Just mark as potentially ready, the load handler handles the first start
+                    isAnimating = true;
+                    // If images are not loaded yet, the load handler line 33 will call animate, which checks isAnimating
+                }
+            } else {
+                isAnimating = false;
+            }
+        });
+    }, { threshold: 0.01 }); // 1% visibility required
+
+    observer.observe(canvas);
+
 });
+

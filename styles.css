@@ -1368,24 +1368,28 @@ p {
         /* Full height */
         clip-path: none;
         -webkit-clip-path: none;
+        background-attachment: scroll !important;
+        /* Fix mobile scroll jank */
         padding-top: 60px;
         /* Reduced from 80px */
         /* Offset for fixed header */
         align-items: flex-end;
         /* Push content to bottom */
-        padding-bottom: 80px;
-        /* Add bottom padding */
+        padding-bottom: 40px;
+        /* Reduced from 80px */
     }
 
     .hero-container {
-        padding-bottom: 60px;
-        /* Safe area for bottom */
+        padding-bottom: 0;
+        /* Remove extra padding */
     }
 
     .hero .title {
-        font-size: 2.8rem;
-        /* Smaller title */
+        font-size: 2rem;
+        /* Reduced from 2.8rem */
         line-height: 1.1;
+        margin-bottom: 10px;
+        /* Reduced margin */
     }
 
     .hero .subtitle {
@@ -1394,8 +1398,11 @@ p {
     }
 
     .hero .description {
-        font-size: 1rem;
-        padding: 0 20px;
+        font-size: 0.9rem;
+        /* Reduced from 1rem */
+        margin-bottom: 20px;
+        /* Reduced margin */
+        padding: 0 10px;
     }
 
     .logo {
