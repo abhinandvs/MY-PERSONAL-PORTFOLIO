@@ -46,8 +46,10 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; REMOVED - Conflicts with Lenis */
     scroll-padding-top: 80px;
+    scroll-snap-type: none !important;
+    /* Ensure no snapping */
 }
 
 body {
@@ -1358,6 +1360,24 @@ p {
 
 @media (max-width: 768px) {
 
+    /* Global Mobile Scroll Fixes */
+    html,
+    body {
+        scroll-behavior: auto !important;
+        /* Disable CSS smooth scroll to prevent fighting */
+        scroll-snap-type: none !important;
+        /* Force disable snapping */
+        height: auto !important;
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
+        background-attachment: scroll !important;
+    }
+
+    /* Prevent horizontal drag interfering with vertical scroll */
+    * {
+        touch-action: pan-y;
+    }
+
     /* Hero Section Fixes */
     .hero {
         margin: 0;
@@ -1375,8 +1395,8 @@ p {
         /* Offset for fixed header */
         align-items: flex-end;
         /* Push content to bottom */
-        padding-bottom: 40px;
-        /* Reduced from 80px */
+        padding-bottom: 20vh;
+        /* Lift text up closer to video (approx 20%) */
     }
 
     .hero-container {
