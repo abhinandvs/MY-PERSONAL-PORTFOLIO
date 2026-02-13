@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('hero-canvas');
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d', { alpha: false }); // Optimize for no transparency
     const totalFrames = 286;
     const folderPath = 'assets/heroimage/ezgif-2e2f263418658a9f-jpg/';
 
     // Frames state
-    const images = [];
+    const images = new Array(totalFrames); // Pre-allocate
     const frameCount = totalFrames;
     let imagesLoaded = 0;
     let currentFrame = 0;
@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const fps = 24;
     const interval = 1000 / fps;
     let lastTime = 0;
+
+    // Resize Debouncing
+    let resizeTimeout;
+
+    // Check if mobile to avoid aggressive resizing
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    let initialWidth = window.innerWidth;
 
     // Preload images
     const pad = (num, size) => {
@@ -33,11 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 requestAnimationFrame(animate);
             }
         };
-        images.push(img);
+        // Store in index i-1
+        images[i - 1] = img;
     }
 
     // Set canvas dimensions with DPI support
     function resizeCanvas() {
+        // On mobile, ignore small width changes (address bar toggle)
+        if (isMobile && Math.abs(window.innerWidth - initialWidth) < 50) {
+            // Provide a stable height if address bar hides/shows
+            // But actually, for a full screen canvas, we might WANT to resize height?
+            // Let's stick to full window for now but maybe debounce more aggressively.
+        }
+
+        initialWidth = window.innerWidth;
+
         const dpr = window.devicePixelRatio || 1;
 
         // Set display size (css pixels).
@@ -48,13 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = window.innerWidth * dpr;
         canvas.height = window.innerHeight * dpr;
 
+        // Context settings reset on resize
+        context.imageSmoothingEnabled = true;
+
         // Redraw immediately if paused or waiting
-        if (images.length > 0 && images[currentFrame]) {
+        if (imagesLoaded > 0 && images[currentFrame]) {
             drawImageCover(context, images[currentFrame]);
         }
     }
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        // Throttle resize aggressively on mobile
+        resizeTimeout = setTimeout(resizeCanvas, isMobile ? 200 : 50);
+    });
+
     resizeCanvas(); // Initial call
 
     // Helper to mimic object-fit: contain (Zoom out to fit)
@@ -91,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (h > w) {
             // Mobile (Portrait): Move video up
             offsetX = (w - drawWidth) / 2;
-            offsetY = h * 0.15;
+            offsetY = h * 0.15; // Adjusted down slightly for better visual center
         } else {
             // Desktop: Center
             offsetX = (w - drawWidth) / 2;
@@ -141,13 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if (!isAnimating && imagesLoaded === frameCount) {
+                if (!isAnimating) {
                     isAnimating = true;
+                    // Only start loop if not already running (managed by flag)
                     requestAnimationFrame(animate);
-                } else if (!isAnimating) {
-                    // Just mark as potentially ready, the load handler handles the first start
-                    isAnimating = true;
-                    // If images are not loaded yet, the load handler line 33 will call animate, which checks isAnimating
                 }
             } else {
                 isAnimating = false;

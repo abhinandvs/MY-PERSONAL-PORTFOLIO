@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&family=Kaushan+Script&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css?v=29">
@@ -48,21 +48,42 @@
 
     <main>
         <!-- Hero Section -->
+        <!-- Hero Section -->
         <section id="hero" class="hero">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero-overlay"></div>
+            <!-- Background Decoration (Optional, keep if needed for other effects, else remove or hide) -->
             <div class="container hero-container">
-                <div class="hero-content">
+                <!-- Left Column: Text -->
+                <div class="hero-text-col reveal-left">
 
-                    <h1 class="title">Hey, I'm
-                        Abhinand</h1>
-                    <p class="description">Electronics and communication Engineer & Photography/Tech/Art
-                    </p>
-                    <div class="cta-group">
-                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <!-- Text removed as requested -->
+
+                    <!-- Decorative elements around text -->
+                    <!-- <div class="hero-decorations">
+                        <img src="assets/flower_pattern.png" alt="" class="flower-decor flower-1">
+                    </div> -->
+
+                    <!-- CTA -->
+                    <!-- <p class="description">Electronics and communication Engineer & Photography/Tech/Art</p> -->
+                    <!-- Kept description commented out or move it if needed, design shows minimal text -->
+                </div>
+
+                <!-- Right Column: Image & Shapes -->
+                <div class="hero-image-col reveal-right">
+                    <div class="hero-image-wrapper">
+                        <!-- The Pink Shape Background -->
+                        <div class="shape-bg"></div>
+
+                        <!-- The Profile Image -->
+                        <img src="assets/profile.jpg" alt="Abhinand V S" class="hero-profile-img">
                     </div>
+
+                    <!-- Floating Squares Decoration -->
+                    <div class="floating-shape shape-1"></div>
+                    <div class="floating-shape shape-2"></div>
+                    <div class="floating-shape shape-3"></div>
                 </div>
             </div>
+
             <!-- Scroll Indicator -->
             <div class="scroll-wrapper">
                 <span class="scroll-text">Scroll Down</span>
@@ -112,7 +133,7 @@
                     <h2>THIS IS ME ....</h2>
                     <p>Technological Expertise meets Creative Vision</p>
                 </div>
-                <div class="skills-grid" data-lenis-prevent>
+                <div class="skills-grid">
                     <!-- 1. Creative Vision (Merged Memories & Art) -->
                     <div class="skill-card-wrapper" data-popup="memories" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom">
@@ -162,7 +183,7 @@
                     <h2>Recent Projects</h2>
                     <p>Innovation & Engineering in Action</p>
                 </div>
-                <div class="projects-grid" data-lenis-prevent>
+                <div class="projects-grid">
                     <!-- Project 5: Water Quality System -->
                     <!-- Project 5: Embedded Edge Processing -->
                     <div class="project-card reveal-up">
@@ -379,13 +400,13 @@
     <!-- Lenis Removed for Native Scroll Performance -->
     <script src="script.js"></script>
     <script src="text-effects.js"></script>
-    <script src="spotlight.js"></script>
+
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="smooth-scroll.js"></script>
     <script src="animations.js"></script>
     <script src="tools-popup.js"></script>
     <script src="skill-popup.js"></script>
-    <script src="hero-video.js"></script>
+    <!-- <script src="hero-video.js"></script> -->
 
 </body>
 

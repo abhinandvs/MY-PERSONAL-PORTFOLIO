@@ -50,6 +50,8 @@ html {
     scroll-padding-top: 80px;
     scroll-snap-type: none !important;
     /* Ensure no snapping */
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
@@ -308,229 +310,293 @@ p {
 
 /* Hero - Minimalistic */
 /* Hero - Minimalistic & Responsive */
+/* ------------------------------------------------------------------
+   HERO SECTION - REDESIGN (Advanced Split Layout)
+   ------------------------------------------------------------------ */
 .hero {
-    min-height: 100vh;
-    height: 100vh;
-    background-color: var(--bg-dark);
-    /* Full Photo Background handled by hero-video.js */
-    /* background: url('assets/hero_bg_latest.jpg'); */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    /* Parallax effect */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    /* Matches image ratio 1920x1080 */
+    background: url('assets/new_hero_image.jpg') no-repeat center center/cover;
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
     z-index: 1;
-    border-radius: 100px;
-    margin-top: 0;
-    margin-right: 0;
-    margin-left: 0;
-    border-radius: 0;
-    -webkit-clip-path: none;
-    clip-path: none;
-    transition: none;
-    /* Remove transition to avoid layout shifts */
+    padding: 0;
+    /* Remove padding to fit image perfectly */
+    margin-top: 100px;
+    /* Push hero down to reveal top of image under fixed header */
 }
 
-/* Ensure canvas covers the hero section */
-#hero-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-
+/* Removed Overlay to show full image quality */
 .hero::before {
-    /* Remove old ::before gradient as we'll use .hero-overlay */
-    content: none;
-}
-
-.hero-overlay {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Stronger gradient for text readability over video */
-    background: linear-gradient(to bottom,
-            rgba(10, 10, 12, 0.3) 0%,
-            rgba(10, 10, 12, 0.1) 40%,
-            rgba(10, 10, 12, 0.6) 80%,
-            rgba(10, 10, 12, 0.95) 100%);
-    z-index: 1;
-    pointer-events: none;
+    display: none;
 }
 
 .hero-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    /* Align left */
+    justify-content: center;
+    /* Center content */
     width: 100%;
-    max-width: 100%;
-    /* Use full width */
-    margin: 0;
-    /* Align to left edge (no centering) */
-    padding-left: 5vw;
-    /* Adaptive left margin */
-    padding-right: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
     position: relative;
     z-index: 10;
-    /* Above canvas and overlay */
-    pointer-events: none;
-    /* Allow mouse interaction with potential underlying elements if needed, but text needs events */
 }
 
-.hero-content {
+/* --- Left Column: Text --- */
+.hero-text-col {
     flex: 1;
-    max-width: 650px;
-    /* Limit width */
-    pointer-events: auto;
-    /* Re-enable interaction for text/buttons */
-    text-align: left;
-    /* Align text to left */
-}
-
-
-
-.hero .title {
-    font-family: var(--font-heading);
-    font-size: 5.5rem;
-    line-height: 1.1;
-    margin-bottom: 30px;
-    color: #ffffff !important;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    animation: fadeInUp 1s ease-out 0.2s backwards;
-}
-
-.hero .title .highlight-text {
-    background: none;
-    -webkit-text-fill-color: #ffffff;
-    color: #ffffff;
-}
-
-.hero .description {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-bottom: 40px;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.9) !important;
-    line-height: 1.6;
-}
-
-/* Hero Image & Blob */
-/* Unused fluid design styles removed */
-
-.cta-group {
+    padding-right: 0;
+    position: relative;
+    z-index: 2;
     display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-}
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Center text */
+    text-align: center;
+    /* Center alignment */
 
-.hero .btn-primary {
-    background: var(--accent-gradient);
-    color: #fff;
+    /* Removed Glassmorphism/Background effects */
+    background: none;
+    padding: 0;
+    box-shadow: none;
     border: none;
-    padding: 12px 35px;
-    box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
-.hero .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 25px rgba(255, 215, 0, 0.3);
+/* Greeting: Yellow Script */
+.greeting {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    /* Increased size slightly */
+    color: #E9C46A;
+    margin-bottom: -10px;
+    margin-left: 0;
+    transform: rotate(-5deg);
+    display: inline-block;
+    position: relative;
+    /* Cleaned up styles */
+    margin-bottom: 20px;
+    /* Positive margin */
+    transform: none;
+    /* Removed rotation */
 }
 
-.hero .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+/* Main Name: Brush Font Pink */
+.main-title {
+
+    font-family: 'Kaushan Script', cursive;
+    font-size: 6rem;
+    font-weight: 400;
+    color: #C84B6B;
+    /* Deep Pink */
+    line-height: 1.1;
+    /* Increased to prevent self-overlap */
+    margin-bottom: 30px;
+    /* Clean text, no shadow */
+    position: relative;
+    z-index: 2;
+}
+
+.highlight-surname {
+    display: inline-block;
+    color: #C84B6B;
+    font-size: 6rem;
+    font-family: 'Kaushan Script', cursive;
+    /* Clean text, no shadow */
+}
+
+/* Hero Decorations Container */
+.hero-decorations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Floating Pink Blobs (Top Left) */
+.shape-blob {
+    position: absolute;
+    background-color: #C84B6B;
+    border-radius: 15px;
+    opacity: 0.9;
+}
+
+.blob-1 {
+    width: 100px;
+    height: 100px;
+    top: -80px;
+    left: -50px;
+    border-radius: 20px;
+}
+
+.blob-2 {
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    left: 70px;
+    border-radius: 8px;
+}
+
+.blob-3 {
+    width: 50px;
+    height: 50px;
+    top: 40px;
+    left: -30px;
+    border-radius: 12px;
+}
+
+/* Flower (Bottom Left of Text) */
+.flower-decor {
+    position: absolute;
+    width: 150px;
+    height: auto;
+    bottom: -50px;
+    left: -50px;
+    opacity: 1;
+    z-index: 0;
+}
+
+/* --- Right Column: Image & Shapes --- */
+.hero-image-col {
+    display: none;
+    /* Hide the split layout image */
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 450px;
+    height: 550px;
+    z-index: 5;
+}
+
+/* The Solid Shape Background */
+.shape-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #C84B6B;
+    /* Only Top-Left is Rounded Large */
+    border-radius: 100px 0 0 0;
+    z-index: 1;
+    transform: none;
+}
+
+/* The Profile Image */
+.hero-profile-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 100px 0 0 0;
+    z-index: 2;
+    filter: grayscale(100%) contrast(1.1);
+}
+
+.hero-image-wrapper:hover .shape-bg {
+    transform: scale(1.02);
+}
+
+.hero-image-wrapper:hover .hero-profile-img {
+    filter: grayscale(0%);
+    transform: translateY(-5px);
+}
+
+/* Floating shapes specific to image column side if any */
+.floating-shape {
+    display: none;
+}
+
+@keyframes floatAnimation {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
 }
 
 /* ------------------------------------------------------------------
    RESPONSIVE DESIGN (MOBILE) 
    ------------------------------------------------------------------ */
-@media screen and (max-width: 768px) {
-    .header {
-        padding: 15px 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .logo::before,
-    .logo::after {
-        width: 30px;
-        height: 30px;
-    }
-
+@media screen and (max-width: 968px) {
     .hero {
-        margin: 0;
-        border-radius: 0;
-        -webkit-clip-path: none;
-        clip-path: none;
-        background-attachment: scroll;
-        /* Fix mobile parallax jitters */
-        /* Center focus on subject */
-        background-position: center top;
-        align-items: flex-end;
-        /* Push content to bottom */
-        padding-bottom: 60px;
-        min-height: 85vh;
-        /* Adjust height for mobile */
-    }
-
-    /* Gradient to make text readable against bottom of image */
-    .hero::before {
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+        background: url('assets/mobile_hero image.png') no-repeat top center/cover;
+        aspect-ratio: 3508/4961;
+        /* Exact ratio of mobile image to prevent whitespace */
+        width: 100%;
+        height: auto;
+        /* Let height be determined by width and aspect ratio */
+        min-height: 0;
+        /* Remove min-height constraint */
+        margin-top: 80px;
+        /* Adjust top margin for mobile header */
+        background-color: transparent;
+        /* Remove solid background color */
+        padding: 0;
     }
 
     .hero-container {
-        padding: 0 20px;
-        justify-content: center;
-        text-align: center;
+        display: none;
+        /* Hide container content if image is standalone, or keep for other elements */
+        /* flex-direction: column-reverse; Removed as we are using background image only mostly */
+        /* padding-top: 50px; */
     }
 
-    .hero-content {
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
+    .hero-text-col {
+        padding: 30px;
+        /* Reduced padding for mobile */
+        margin-right: 0;
+        margin-top: 0;
+        /* Removed margin as image is hidden */
         align-items: center;
-        text-align: center;
-        /* Ensure mobile text is centered */
+        /* Center align text on mobile */
     }
 
+    .greeting {
+        font-size: 2.5rem;
+        margin-left: 0;
+    }
 
+    .main-title {
+        font-size: 4rem;
+    }
 
-    .hero .title {
+    .highlight-surname {
         font-size: 3rem;
-        /* drastically reduce from 5.5rem */
-        line-height: 1.1;
-        margin-bottom: 20px;
     }
 
-    .hero .description {
-        font-size: 1rem;
-        margin-bottom: 30px;
-        color: rgba(255, 255, 255, 0.95) !important;
+    .hero-image-wrapper {
+        width: 280px;
+        /* Smaller on mobile */
+        height: 350px;
     }
 
-    .cta-group {
-        justify-content: center;
-        width: 100%;
+    .shape-1 {
+        right: -10px;
+        width: 60px;
+        height: 60px;
     }
 
-    .hero .btn-primary {
-        width: 100%;
-        max-width: 250px;
-        padding: 12px 30px;
+    .shape-2 {
+        left: -10px;
     }
 }
 
@@ -3053,3 +3119,68 @@ img,
         color: var(--text-muted);
     }
 }
+/* ------------------------------------------------------------------
+   MOBILE SKILLS SLIDER FIX 
+   ------------------------------------------------------------------ */
+@media screen and (max-width: 768px) {
+    .skills-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding-bottom: 30px;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: calc(100% + 40px);
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .skills-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .skill-card-wrapper {
+        flex: 0 0 85%;
+        width: 85%;
+        scroll-snap-align: center;
+        margin-bottom: 0;
+    }
+
+    .skill-card {
+        height: 100%;
+        min-height: 300px;
+    }
+}
+
+/* ------------------------------------------------------------------
+   GLOBAL ANIMATION KILL SWITCH
+   ------------------------------------------------------------------ */
+* {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+}/ *   G L O B A L   A N I M A T I O N   K I L L   S W I T C H   &   V I S I B I L I T Y   R E S T O R E   * /  
+ *   {  
+         t r a n s i t i o n :   n o n e   ! i m p o r t a n t ;  
+         a n i m a t i o n :   n o n e   ! i m p o r t a n t ;  
+         s c r o l l - b e h a v i o r :   a u t o   ! i m p o r t a n t ;  
+ }  
+  
+ / *   F o r c e   v i s i b i l i t y   o n   e l e m e n t s   t h a t   r e l i e d   o n   a n i m a t i o n s   t o   a p p e a r   * /  
+ . r e v e a l ,  
+ . r e v e a l - u p ,  
+ . r e v e a l - l e f t ,  
+ . r e v e a l - r i g h t ,  
+ . r e v e a l - z o o m ,  
+ . r e v e a l - s m o o t h ,  
+ . s p o t l i g h t - c a r d   {  
+         o p a c i t y :   1   ! i m p o r t a n t ;  
+         t r a n s f o r m :   n o n e   ! i m p o r t a n t ;  
+         v i s i b i l i t y :   v i s i b l e   ! i m p o r t a n t ;  
+ }  
+ 
