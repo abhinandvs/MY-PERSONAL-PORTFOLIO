@@ -547,7 +547,7 @@ p {
     height: auto;
     /* Ensure no extra space at bottom */
     /* Negative margin to pull content up over the image's bottom whitespace */
-    margin-bottom: -15vw;
+    margin-bottom: -30vw;
     display: none;
 }
 
@@ -563,8 +563,8 @@ p {
         width: 100%;
         height: auto;
         min-height: 0;
-        margin-top: 80px;
-        background-color: transparent;
+        margin-top: 0;
+        background-color: transparent !important;
         padding: 0;
         display: block;
         /* Stack content */
@@ -575,6 +575,9 @@ p {
         /* Show on mobile */
         width: 100%;
         height: auto;
+        margin-top: 100px;
+        margin-bottom: -50vw;
+        /* Pull About section up to touch image */
     }
 
     .hero-container {
@@ -657,6 +660,45 @@ p {
 }
 
 /* ... existing code ... */
+
+/* Projects Section - Liquid Glass Redesign */
+.projects {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--theme-lace);
+    /* Base color */
+    z-index: 1;
+}
+
+.projects::before,
+.projects::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.projects::before {
+    top: -100px;
+    right: -100px;
+    background: var(--primary-purple);
+}
+
+.projects::after {
+    bottom: -100px;
+    left: -150px;
+    background: var(--primary-color);
+}
+
+.projects .container {
+    position: relative;
+    z-index: 2;
+}
 
 /* Skills Section */
 /* Skills Section - Redesign */
@@ -3678,10 +3720,7 @@ img,
 
 /* Corrupted CSS block removed */
 
-/* Safety close for previous blocks */
-}
-}
-}
+
 
 /* =========================================
    NEW MENU UI REDESIGN - FIXED V3
