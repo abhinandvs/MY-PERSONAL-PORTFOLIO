@@ -557,34 +557,33 @@ p {
 @media screen and (max-width: 968px) {
     .hero {
         background: none !important;
-        /* Remove background image */
         aspect-ratio: auto !important;
-        /* Remove fixed aspect ratio */
         width: 100%;
-        height: auto;
-        min-height: 0;
+        height: auto !important;
+        min-height: auto !important;
         margin-top: 0;
+        margin-bottom: 0;
         background-color: transparent !important;
-        padding: 0;
-        display: block;
-        /* Stack content */
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .mobile-hero-img {
         display: block !important;
-        /* Show on mobile */
         width: 100%;
         height: auto;
-        margin-top: 100px;
-        margin-bottom: -50vw;
-        /* Pull About section up to touch image */
+        margin-top: 0;
+        margin-bottom: 0;
+        object-fit: contain;
     }
 
     .hero-container {
         display: none;
-        /* Hide container content if image is standalone, or keep for other elements */
-        /* flex-direction: column-reverse; Removed as we are using background image only mostly */
-        /* padding-top: 50px; */
+        /* Keep hidden as per current design, can be enabled if text is needed */
     }
 
     .hero-text-col {
@@ -1565,18 +1564,18 @@ p {
         /* Remove margin for full width feel on mobile */
         border-radius: 0;
         /* Remove border radius */
-        height: 100vh;
+        height: auto !important;
         /* Full height */
         clip-path: none;
         -webkit-clip-path: none;
         background-attachment: scroll !important;
         /* Fix mobile scroll jank */
-        padding-top: 60px;
-        /* Reduced from 80px */
+        padding-top: 100px;
+        /* Increased to clearing fixed header */
         /* Offset for fixed header */
-        align-items: flex-end;
+        align-items: center;
         /* Push content to bottom */
-        padding-bottom: 20vh;
+        padding-bottom: 20px;
         /* Lift text up closer to video (approx 20%) */
     }
 
