@@ -15,19 +15,143 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="subpages.css">
 </head>
 
 <body>
-    <div
-        style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #FAF9F6; color: #111; font-family: 'Playfair Display', serif; text-align: center;">
-        <div>
-            <h1 style="font-size: 3rem; margin-bottom: 20px;">Coming Soon</h1>
-            <p style="font-family: 'DM Sans', sans-serif;">This page is currently under construction.</p>
-            <a href="index.html"
-                style="text-decoration: none; color: #FFB703; font-family: 'DM Sans', sans-serif; margin-top: 20px; display: inline-block;">Back
-                to Home</a>
-        </div>
+    <!-- Background Decorations -->
+    <div class="bg-decorations">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
     </div>
+    <!-- Navigation Back Button -->
+    <nav class="back-nav">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 class="page-title">Technical Expertise</h1>
+        <p class="page-subtitle">A deep dive into my engineering capabilities, from hardware design to wireless
+            complications.</p>
+    </header>
+
+    <!-- Skills Content -->
+    <section class="skills-wrapper">
+
+        <!-- Category 1: Hardware Design -->
+        <div class="skill-category">
+            <h2 class="category-title">Hardware Design & PCB Engineering</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>Cadence Allegro</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-bezier-curve"></i>
+                    <span>OrCAD</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-wave-square"></i>
+                    <span>Sigrity Aurora</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Signal & Power Integrity</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-car-battery"></i>
+                    <span>BMS Testing</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>BMS Implementation</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 2: Embedded Firmware -->
+        <div class="skill-category">
+            <h2 class="category-title">Embedded System Firmware</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fas fa-code"></i>
+                    <span>Embedded C</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Code Composer Studio</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>MSP430</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>ESP32</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-calculator"></i>
+                    <span>STM32</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 3: Wireless Communication -->
+        <div class="skill-category">
+            <h2 class="category-title">Wireless Communication & Networking</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>RF Antenna Alignment</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span>Ubiquiti 19dBi Sectoral</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>TE 6dBi Omni</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-search-location"></i>
+                    <span>RF Site Survey</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-volume-mute"></i>
+                    <span>Noise Floor Mgmt</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Ubiquiti AirMax/AirOS</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-rocket"></i>
+                    <span>Rocket Prism 5AC Gen2</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Networking & VPN</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-industry"></i>
+                    <span>Industrial LTE Gateways</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Network Topology</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-desktop"></i>
+                    <span>Remote Monitoring</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
 </body>
 
 </html>
