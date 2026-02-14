@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&family=Kaushan+Script&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&family=Kaushan+Script&family=Oswald:wght@200..700&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css?v=29">
@@ -84,6 +84,9 @@
                 </div>
             </div>
 
+            <!-- Mobile Hero Image (Visible only on mobile) -->
+            <img src="assets/new mobile hero imgUntitled-3.jpg.jpeg" alt="Mobile Hero" class="mobile-hero-img">
+
             <!-- Scroll Indicator -->
             <div class="scroll-wrapper">
                 <span class="scroll-text">Scroll Down</span>
@@ -129,15 +132,16 @@
         <!-- Skills Section -->
         <section id="skills" class="skills section-padding reveal">
             <div class="container">
-                <div class="section-header center-text" style="margin-bottom: 50px;">
-                    <h2>THIS IS ME ....</h2>
-                    <p>Technological Expertise meets Creative Vision</p>
+                <div class="section-header staggered-header" style="margin-bottom: 50px;">
+                    <h2 class="line-left">THIS IS ME ....</h2>
+                    <h2 class="line-right">TECHNOLOGICAL EXPERTISE<br>MEETS CREATIVE VISION</h2>
                 </div>
                 <div class="skills-grid" data-lenis-prevent>
                     <!-- 1. Creative Vision (Merged Memories & Art) -->
                     <div class="skill-card-wrapper" data-popup="memories" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom">
                             <div class="spotlight-overlay"></div>
+                            <div class="card-number">01</div>
                             <i class="fas fa-camera"></i>
                             <h3>MEMORIES</h3>
                             <div class="skill-bar-container">
@@ -151,6 +155,7 @@
                     <div class="skill-card-wrapper" data-popup="tech" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom" style="transition-delay: 0.2s;">
                             <div class="spotlight-overlay"></div>
+                            <div class="card-number">02</div>
                             <i class="fas fa-rocket"></i>
                             <h3>MY TECH PRODUCTS</h3>
                             <div class="skill-bar-container">
@@ -164,6 +169,7 @@
                     <div class="skill-card-wrapper" data-popup="skills" style="cursor: pointer;">
                         <div class="skill-card spotlight-card reveal-zoom" style="transition-delay: 0.3s;">
                             <div class="spotlight-overlay"></div>
+                            <div class="card-number">03</div>
                             <i class="fas fa-microchip"></i>
                             <h3>TECHNICAL SKILL</h3>
                             <div class="skill-bar-container">
@@ -173,15 +179,22 @@
                         </div>
                     </div>
                 </div>
+                <!-- Carousel Controls -->
+                <div class="skills-controls">
+                    <button class="carousel-btn prev-btn" aria-label="Previous Skill"><i
+                            class="fas fa-arrow-left"></i></button>
+                    <button class="carousel-btn next-btn" aria-label="Next Skill"><i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects" class="projects section-padding reveal">
             <div class="container">
-                <div class="section-header center-text">
-                    <h2>Recent Projects</h2>
-                    <p>Innovation & Engineering in Action</p>
+                <div class="section-header staggered-header">
+                    <h2 class="line-left">RECENT PROJECTS</h2>
+                    <h2 class="line-right">INNOVATION & ENGINEERING<br>IN ACTION</h2>
                 </div>
                 <div class="projects-grid" data-lenis-prevent>
                     <!-- Project 5: Water Quality System -->
@@ -298,9 +311,9 @@
         <!-- Experience & Education Section -->
         <section id="experience" class="experience section-padding reveal">
             <div class="container">
-                <div class="section-header center-text" style="margin-bottom: 60px;">
-                    <h2>Experience & Education</h2>
-                    <p>My Professional & Academic Journey</p>
+                <div class="section-header staggered-header" style="margin-bottom: 60px;">
+                    <h2 class="line-left">EXPERIENCE & EDUCATION</h2>
+                    <h2 class="line-right">MY PROFESSIONAL &<br>ACADEMIC JOURNEY</h2>
                 </div>
                 <div class="timeline">
                     <!-- Item 1: Job (Right) -->
@@ -348,7 +361,7 @@
 
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="contact">
         <div class="container footer-content">
             <div class="footer-logo">ABHINAND V S</div>
             <div class="footer-socials">
@@ -380,18 +393,48 @@
 
     <!-- Navigation Menu Modal (Tools Modal) -->
     <div id="tools-modal" class="modal">
-        <div class="modal-backdrop-anim">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-        </div>
-        <div class="modal-content flex-center">
-            <span class="close-modal close-tools-modal">&times;</span>
-            <div class="nav-menu-content">
-                <a href="#about" class="menu-link">ABOUT</a>
-                <a href="#skills" class="menu-link">SKILLS</a>
-                <a href="#projects" class="menu-link">PROJECTS</a>
-                <a href="#experience" class="menu-link">EXPERIENCE</a>
+        <!-- New Menu Structure -->
+        <div class="menu-container">
+            <div class="menu-header">
+                <button class="menu-back-btn close-tools-modal">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="menu-close-text close-tools-modal">Close <i class="fas fa-times"></i></div>
+            </div>
+
+            <ul class="new-nav-links">
+                <li class="menu-item-wrapper">
+                    <a href="#about" class="menu-link close-tools-modal">
+                        ABOUT ME <span class="menu-num">01</span>
+                    </a>
+                </li>
+                <li class="menu-item-wrapper">
+                    <a href="#projects" class="menu-link close-tools-modal">
+                        MY PROJECTS <span class="menu-num">02</span>
+                    </a>
+                </li>
+                <li class="menu-item-wrapper">
+                    <a href="#skills" class="menu-link close-tools-modal">
+                        SKILLS <span class="menu-num">03</span>
+                    </a>
+                </li>
+                <li class="menu-item-wrapper">
+                    <a href="#contact" class="menu-link close-tools-modal">
+                        CONTACT US <span class="menu-num">04</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="menu-footer">
+                <p class="menu-footer-label">Socials</p>
+                <div class="menu-footer-links">
+                    <a href="https://www.instagram.com/_abhinand_vs?igsh=MTFwemZ1MnVkaDhibQ=="
+                        target="_blank">Instagram</a>
+                    <a href="https://www.linkedin.com/in/abhinand-v-s-8479b6273" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/abhinandvs" target="_blank">GitHub</a>
+                    <a href="https://pin.it/4h4zM3wM4" target="_blank">Pinterest</a>
+                </div>
+                <button class="menu-floating-btn"><i class="fas fa-sync-alt"></i></button>
             </div>
         </div>
     </div>

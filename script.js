@@ -101,4 +101,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lenis Removed - Using Native Scroll for better mobile performance
 
+
+    // Carousel Logic
+    const skillsGrid = document.querySelector('.skills-grid');
+    const prevBtn = document.querySelector('.carousel-btn.prev-btn');
+    const nextBtn = document.querySelector('.carousel-btn.next-btn');
+
+    if (skillsGrid && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            skillsGrid.scrollBy({ left: -320, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            skillsGrid.scrollBy({ left: 320, behavior: 'smooth' });
+        });
+
+        // Optional: Highlight active card
+        const checkActiveCard = () => {
+            const center = skillsGrid.scrollLeft + (skillsGrid.offsetWidth / 2);
+            const cards = document.querySelectorAll('.skill-card');
+
+            cards.forEach(card => {
+                const wrapper = card.closest('.skill-card-wrapper');
+                const cardCenter = wrapper.offsetLeft + (wrapper.offsetWidth / 2);
+
+                // Simple check if card center is within view center range
+                if (Math.abs(center - cardCenter) < wrapper.offsetWidth / 2) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        };
+
+        skillsGrid.addEventListener('scroll', checkActiveCard, { passive: true });
+        // Initial check
+        checkActiveCard();
+    }
+
 });

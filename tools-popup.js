@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toolsTrigger = document.getElementById('tools-trigger');
     const toolsModal = document.getElementById('tools-modal');
-    const closeModal = document.querySelector('.close-tools-modal');
+    const closeModals = document.querySelectorAll('.close-tools-modal');
 
     // Open Modal
     if (toolsTrigger) {
@@ -25,8 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = ''; // Restore scrolling
     };
 
-    if (closeModal) {
-        closeModal.addEventListener('click', closeToolsModal);
+    if (closeModals) {
+        closeModals.forEach(btn => {
+            btn.addEventListener('click', closeToolsModal);
+        });
     }
 
     // Close on Outside Click
