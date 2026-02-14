@@ -1,5 +1,7 @@
-/* Text Hover Animations */
 document.addEventListener('DOMContentLoaded', () => {
+    // Disable on mobile
+    if (window.innerWidth < 769) return;
+
     // Use Event Delegation for better performance
     const relevantTags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'A', 'SPAN', 'LI', 'BUTTON'];
 

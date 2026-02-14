@@ -46,7 +46,7 @@
 }
 
 html {
-    /* scroll-behavior: smooth; REMOVED - Conflicts with Lenis */
+    scroll-behavior: smooth;
     scroll-padding-top: 80px;
     scroll-snap-type: none !important;
     /* Ensure no snapping */
@@ -305,7 +305,7 @@ p {
     display: none;
     font-size: 1.5rem;
     color: var(--text-main);
-    cursor: pointer;
+    /* Custom Cursor Styles Removed */
 }
 
 /* Hero - Minimalistic */
@@ -1524,40 +1524,8 @@ p {
     }
 
     .nav-list {
-        display: flex;
-        flex-direction: column;
-
-        /* Liquid Glass Popup */
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(25px) saturate(180%);
-        -webkit-backdrop-filter: blur(25px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        border-radius: 24px;
-
-        position: absolute;
-        top: 80px;
-        /* Below header */
-        right: 20px;
-        /* Aligned to right */
-        left: auto;
-        bottom: auto;
-        width: 250px;
-        height: auto;
-
-        padding: 40px 0;
-
-        /* Hidden State with Liquid Animation */
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(0.8) translateY(-20px);
-        transform-origin: top right;
-        transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        /* Bouncy Liquid Feel */
-        z-index: 998;
-
-        align-items: center;
-        gap: 25px;
+        display: none;
+        /* Hide standard nav list on mobile in favor of #tools-modal */
     }
 
     .nav-list.active {
@@ -1584,35 +1552,53 @@ p {
     }
 
     /* Grids to Horizontal Scroll (Carousel) */
+    /* Grids to Horizontal Scroll (Carousel) */
     .skills-grid,
     .projects-grid {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        /* Critical: ensure scroll starts from left */
-        /* Critical: Prevent wrapping */
-        overflow-x: auto;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+
+        overflow-x: auto !important;
+        overflow-y: hidden;
+        /* Prevent vertical scroll inside the container */
+
         gap: 20px;
         padding: 10px 20px 30px 20px;
-        /* Padding bottom for scroll/shadow */
+
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        touch-action: pan-x pan-y;
-        overscroll-behavior-x: contain;
-        /* Explicitly allow horizontal pan */
+
+        /* CRITICAL: Allow panning in both directions so vertical scroll isn't blocked by the browser */
+        touch-action: pan-x pan-y !important;
+
         width: 100%;
-        grid-template-columns: none;
-        /* Reset grid */
+        grid-template-columns: none !important;
         margin-top: 20px;
         scrollbar-width: none;
         /* Firefox */
+
+        /* Mobile specific margin/padding adjustments from the bottom block */
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: calc(100% + 40px);
     }
 
     /* Hide scrollbar for Chrome/Safari */
     .skills-grid::-webkit-scrollbar,
     .projects-grid::-webkit-scrollbar {
         display: none;
+    }
+
+    .skill-card-wrapper {
+        flex: 0 0 85%;
+        /* Make cards wide enough to see usage */
+        width: 85%;
+        scroll-snap-align: center;
+        margin-bottom: 0;
     }
 
     .container.about-container {
@@ -1709,6 +1695,7 @@ p {
     /* Remove negative margins */
     border-radius: 0;
     /* Rectangular sections */
+    overflow: visible;
 }
 
 .skills {
@@ -2203,6 +2190,19 @@ html {
     /* iOS Smooth Easing */
 }
 
+/* Reveal Animations - Disabled for cleanup */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-up,
+.reveal-zoom,
+.reveal-smooth {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    transition: none !important;
+}
+
 /* 1. Fade Up (Default) */
 .reveal,
 .reveal-up {
@@ -2664,6 +2664,22 @@ img,
     font-size: 2rem;
 }
 
+/* Skills Grid - Desktop/Default State */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    /* Desktop wraps */
+    justify-content: center;
+    gap: 30px;
+}
+
+.skill-card-wrapper {
+    flex: 0 0 300px;
+    /* Fixed width on desktop */
+    margin-bottom: 20px;
+    perspective: 1000px;
+}
+
 /* Tools Grid */
 .tools-grid {
     display: grid;
@@ -3119,6 +3135,173 @@ img,
         color: var(--text-muted);
     }
 }
+
+/* ------------------------------------------------------------------
+   MOBILE SKILLS SLIDER FIX 
+   ------------------------------------------------------------------ */
+/* Consolidated into main mobile media query above */
+
+.polaroid i {
+    font-size: 2rem;
+    color: #ddd;
+}
+
+/* Initial "stacked" state */
+.polaroid.p1 {
+    transform: rotate(-5deg);
+    z-index: 1;
+    opacity: 0;
+}
+
+.polaroid.p2 {
+    transform: rotate(5deg);
+    z-index: 2;
+    opacity: 0;
+}
+
+/* Animate in */
+.modal.active .polaroid.p1 {
+    opacity: 1;
+    transform: rotate(-10deg) translate(-20px, 10px);
+}
+
+.modal.active .polaroid.p2 {
+    opacity: 1;
+    transform: rotate(10deg) translate(20px, -5px);
+}
+
+/* Decoration for photos */
+.polaroid::after {
+    content: '';
+    width: 80%;
+    height: 70%;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    position: absolute;
+    top: 10px;
+    border-radius: 2px;
+}
+
+.memories-info {
+    text-align: center;
+    z-index: 10;
+}
+
+.memories-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+    background: var(--accent-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.memories-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+.instagram-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border: none;
+    color: white !important;
+    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+    padding: 12px 35px;
+}
+
+.instagram-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.4);
+}
+
+/* Mobile Tweak for Memories Modal */
+@media screen and (max-width: 480px) {
+    .memories-title {
+        font-size: 1.8rem;
+        /* Slightly smaller title too */
+    }
+
+    .memories-visuals {
+        transform: scale(0.75);
+        /* Reduced scale to fit smaller modal */
+        margin-bottom: -15px;
+        /* Pull content up a bit due to scale */
+    }
+
+    .memories-content-wrapper {
+        padding: 0;
+        gap: 20px;
+        /* Reduce gap */
+    }
+
+    .memories-desc {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+
+    /* NEW: Fix Tech Products Popup for Small Screens */
+    .product-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 0 5px;
+        /* Prevent edge touching */
+    }
+
+    .product-list .product-item {
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.5);
+        /* Lighter bg to see overlap if any */
+    }
+
+    .product-list .product-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .product-list .product-info h4 {
+        font-size: 0.95rem;
+        /* Smaller title */
+    }
+
+    .product-list .product-info p {
+        font-size: 0.75rem;
+        /* Smaller desc */
+    }
+
+    /* Ensure general modal headings scale down */
+    #skill-modal-body h2 {
+        font-size: 1.5rem !important;
+        /* Force smaller size for "MY TECH PRODUCTS" */
+        margin-bottom: 15px !important;
+    }
+
+    #skill-modal-body i.fa-rocket,
+    #skill-modal-body i.fa-microchip {
+        font-size: 2rem !important;
+        /* Smaller top icon */
+        margin-bottom: 10px !important;
+    }
+
+    /* Fix Close Button for Mobile Popup */
+    .close-modal {
+        position: absolute !important;
+        top: 10px !important;
+        right: 15px !important;
+        font-size: 1.8rem !important;
+        z-index: 100 !important;
+        background: transparent;
+        color: var(--text-muted);
+    }
+}
+
 /* ------------------------------------------------------------------
    MOBILE SKILLS SLIDER FIX 
    ------------------------------------------------------------------ */
@@ -3144,6 +3327,56 @@ img,
         display: none;
     }
 
+    .project-card,
+    .skill-card-wrapper {
+        min-width: 280px;
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+    }
+}
+
+/* Projects Grid Horizontal Scroll Fix */
+@media screen and (max-width: 768px) {
+    .projects-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding-bottom: 30px;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: calc(100% + 40px);
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .projects-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Fix Background Attachment Jitter */
+    .hero,
+    .about,
+    .skills,
+    .projects,
+    .experience {
+        background-attachment: scroll !important;
+    }
+
+    /* Hide Custom Cursor - Styles Removed */
+
+
+    /* Disable some hover effects */
+    .hover-animate {
+        transform: none !important;
+        color: inherit !important;
+    }
+
+
     .skill-card-wrapper {
         flex: 0 0 85%;
         width: 85%;
@@ -3157,30 +3390,76 @@ img,
     }
 }
 
-/* ------------------------------------------------------------------
-   GLOBAL ANIMATION KILL SWITCH
-   ------------------------------------------------------------------ */
-* {
-    transition: none !important;
-    animation: none !important;
-    scroll-behavior: auto !important;
-}/ *   G L O B A L   A N I M A T I O N   K I L L   S W I T C H   &   V I S I B I L I T Y   R E S T O R E   * /  
- *   {  
-         t r a n s i t i o n :   n o n e   ! i m p o r t a n t ;  
-         a n i m a t i o n :   n o n e   ! i m p o r t a n t ;  
-         s c r o l l - b e h a v i o r :   a u t o   ! i m p o r t a n t ;  
- }  
-  
- / *   F o r c e   v i s i b i l i t y   o n   e l e m e n t s   t h a t   r e l i e d   o n   a n i m a t i o n s   t o   a p p e a r   * /  
- . r e v e a l ,  
- . r e v e a l - u p ,  
- . r e v e a l - l e f t ,  
- . r e v e a l - r i g h t ,  
- . r e v e a l - z o o m ,  
- . r e v e a l - s m o o t h ,  
- . s p o t l i g h t - c a r d   {  
-         o p a c i t y :   1   ! i m p o r t a n t ;  
-         t r a n s f o r m :   n o n e   ! i m p o r t a n t ;  
-         v i s i b i l i t y :   v i s i b l e   ! i m p o r t a n t ;  
- }  
- 
+/* End of Styles */
+
+/* CRITICAL MOBILE SCROLL FIXES */
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: auto !important;
+    }
+
+    /* Ensure preloader doesn't block */
+    body.loaded #preloader {
+        display: none !important;
+        pointer-events: none !important;
+        z-index: -9999 !important;
+    }
+
+    /* HORIZONTAL SCROLL FIXES - Bulletproof Method */
+    .skills,
+    .projects,
+    .skills .container,
+    .projects .container {
+        overflow: visible !important;
+        max-width: 100vw !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .skills-grid,
+    .projects-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+
+        width: 100% !important;
+        padding: 0 20px 30px 20px !important;
+        /* Side padding for optical alignment */
+        gap: 15px !important;
+
+        /* Ensure it behaves like a scroll container */
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none !important;
+    }
+
+    /* Force items to keep their width and not shrink */
+    .skill-card-wrapper,
+    .project-card {
+        flex: 0 0 85vw !important;
+        /* Use Viewport Width units */
+        width: 85vw !important;
+        max-width: 350px !important;
+        min-width: 280px !important;
+        margin-right: 15px !important;
+        scroll-snap-align: center;
+        /* Ensure no other styles interfere */
+        float: none !important;
+        display: block !important;
+    }
+
+    /* Ensure last item has breathing room */
+    .skills-grid::after,
+    .projects-grid::after {
+        content: '';
+        flex: 0 0 20px;
+        /* Spacer */
+        display: block;
+    }
+}
