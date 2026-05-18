@@ -41,111 +41,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const gallery = document.getElementById('memory-gallery');
     if (!gallery) return;
 
-    // Render all images into the track
-    const fragment = document.createDocumentFragment();
-    memoryData.forEach((data) => {
-        const div = document.createElement('div');
-        div.className = 'memory-item';
-        
-        if (data.type === 'image') {
-            const img = document.createElement('img');
-            img.src = data.src;
-            img.alt = 'Memory';
-            img.loading = 'lazy'; // Keep native lazy loading so off-screen images don't load immediately
-            div.appendChild(img);
-        } else {
-            div.className += ` ${data.class}`;
-            div.innerHTML = data.content;
-        }
+    let currentIndex = 0;
+    const batchSize = 16; // Load 16 images at a time to ensure scrollbar appears
 
-        fragment.appendChild(div);
-    });
-    
-    gallery.appendChild(fragment);
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
 
-    // Get all rendered items
-    const items = document.querySelectorAll('.memory-item');
-
-    // Scroll Animation Logic
-    function updateGallery() {
-        const containerCenter = gallery.getBoundingClientRect().left + gallery.offsetWidth / 2;
-        
-        items.forEach((item) => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenter = itemRect.left + itemRect.width / 2;
-            
-            // Distance from center of container
-            const distance = itemCenter - containerCenter;
-            
-            // Normalizing factor (tune this to make the effect wider or narrower)
-            // Using a fixed pixel amount (e.g. 500) works better than container width for a consistent curve
-            const maxDistance = 600; 
-            
-            // Normalize distance between -1 and 1
-            let normalized = distance / maxDistance;
-            
-            // Clamp to [-1, 1] to stop animating past a certain point
-            normalized = Math.max(-1, Math.min(1, normalized));
-            
-            // Transform Math based on reference image
-            // 1. Rotation: Center is 0deg. Left is negative rotation, Right is positive.
-            const rotateZ = normalized * 35; // degrees (max 35deg rotation)
-            
-            // 2. Scale: Center is 1. Edges scale down.
-            // When normalized is 0 (center), scale is 1. When normalized is 1/-1 (edges), scale is 0.6
-            const scale = 1 - Math.abs(normalized) * 0.4;
-            
-            // 3. Translate Y: Form an arc (push down slightly at edges)
-            const translateY = Math.abs(normalized) * 80; // push down up to 80px
-            
-            // 4. Translate X: Squeeze items closer together as they move to edges
-            const translateX = normalized * -100; // Pull towards center
-            
-            // 5. Z-Index: Center item must be on top
-            // Using 100 as base and subtracting based on distance
-            const zIndex = Math.round(100 - Math.abs(normalized) * 100);
-            
-            // Apply Transforms
-            item.style.transform = `translateX(${translateX}px) translateY(${translateY}px) scale(${scale}) rotateZ(${rotateZ}deg)`;
-            item.style.zIndex = zIndex;
-            
-            // Optional: Dim items on edges
-            const img = item.querySelector('img');
-            if (img) {
-                // Dim down to 30% brightness at edges
-                const brightness = 1 - Math.abs(normalized) * 0.7;
-                img.style.filter = `brightness(${brightness})`;
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Stop observing once visible
             }
         });
+    }, observerOptions);
+
+    // Infinite scroll observer to load more items
+    const loadMoreObserver = new IntersectionObserver((entries) => {
+        const lastEntry = entries[0];
+        if (lastEntry.isIntersecting && currentIndex < memoryData.length) {
+            // Unobserve the current sentinel
+            loadMoreObserver.unobserve(lastEntry.target);
+            // Load next batch
+            loadBatch();
+        }
+    }, { rootMargin: '200px' }); // Trigger before reaching the very bottom
+
+    function loadBatch() {
+        const fragment = document.createDocumentFragment();
+        const endIndex = Math.min(currentIndex + batchSize, memoryData.length);
+        
+        for (let i = currentIndex; i < endIndex; i++) {
+            const data = memoryData[i];
+            const div = document.createElement('div');
+            div.className = 'memory-item';
+            
+            if (data.type === 'image') {
+                const img = document.createElement('img');
+                img.src = data.src;
+                img.alt = 'Memory';
+                img.loading = 'lazy';
+                div.appendChild(img);
+            } else {
+                div.className += ` ${data.class}`;
+                div.innerHTML = data.content;
+            }
+
+            fragment.appendChild(div);
+            
+            // Observe for entrance animation
+            observer.observe(div);
+        }
+        
+        gallery.appendChild(fragment);
+        currentIndex = endIndex;
+
+        // If there are more items to load, observe the last rendered item
+        if (currentIndex < memoryData.length) {
+            const items = gallery.querySelectorAll('.memory-item');
+            const lastItem = items[items.length - 1];
+            if (lastItem) {
+                loadMoreObserver.observe(lastItem);
+            }
+        }
     }
 
-    // Map vertical mouse wheel scroll to horizontal scroll
-    gallery.addEventListener('wheel', (e) => {
-        if (e.deltaY !== 0) {
-            e.preventDefault();
-            // Smoothly scroll horizontally based on vertical wheel movement
-            gallery.scrollBy({
-                left: e.deltaY * 2, // Multiply for slightly faster scroll speed
-                behavior: 'auto'
-            });
-        }
-    }, { passive: false }); // Needs to not be passive to preventDefault
-
-    // Attach scroll and resize events
-    gallery.addEventListener('scroll', () => {
-        // Use requestAnimationFrame for smooth 60fps+ rendering
-        requestAnimationFrame(updateGallery);
-    });
-    
-    window.addEventListener('resize', () => {
-        requestAnimationFrame(updateGallery);
-    });
-    
-    // Initial setup
-    // We use setTimeout to ensure images/layout have settled before calculating rects
-    setTimeout(() => {
-        // Scroll to the middle of the gallery to start
-        gallery.scrollLeft = (gallery.scrollWidth - gallery.clientWidth) / 2;
-        updateGallery();
-    }, 100);
+    // Initial load
+    loadBatch();
 });

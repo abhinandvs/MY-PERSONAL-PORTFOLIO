@@ -1,14 +1,14 @@
-/* Memories Page - Fanned Scroll Animation */
+/* Memories Page - Minimalistic Masonry Layout */
 
 body {
-    overflow: hidden; /* Prevent vertical scrolling */
-    background-color: #0a0a0c; /* Dark theme to match reference image vibe */
+    background-color: #0a0a0c;
     color: #fff;
     margin: 0;
     padding: 0;
+    /* Removed overflow: hidden so vertical scrolling works normally */
+    overflow-x: hidden;
 }
 
-/* Ensure the header text is legible on dark background */
 .page-title {
     background: linear-gradient(135deg, #FFB703, #C84B6B);
     -webkit-background-clip: text;
@@ -19,49 +19,49 @@ body {
 }
 
 .gallery-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    padding: 120px 5vw 60px; /* Top padding to clear header/nav */
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 2;
+    justify-content: center;
 }
 
 .gallery-container {
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: auto; /* We want instant response to scroll, no smooth scroll snapping */
-    
-    /* Padding to allow first and last items to reach the center */
-    padding: 0 50vw; 
-    box-sizing: border-box;
-    
-    /* Hide scrollbar for a cleaner look */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    max-width: 1400px;
+    /* CSS Columns for masonry effect */
+    column-count: 4;
+    column-gap: 20px;
 }
 
-.gallery-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+@media (max-width: 1200px) {
+    .gallery-container {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 800px) {
+    .gallery-container {
+        column-count: 2;
+        column-gap: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .gallery-container {
+        column-count: 1;
+    }
 }
 
 .memory-item {
-    flex: 0 0 auto;
-    width: 320px !important;
-    height: 320px !important; /* Square/portrait aspect ratio */
-    margin: 0 -80px; /* Negative margin pulls them closer together for the coverflow effect */
-    border-radius: 20px;
+    break-inside: avoid;
+    margin-bottom: 20px;
+    border-radius: 12px;
     overflow: hidden;
     position: relative;
     background: #1a1a1a;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     
     /* Center text content if any */
     display: flex;
@@ -69,33 +69,37 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px;
     
-    /* Will-change for performance */
-    will-change: transform, z-index;
-    
-    /* Remove transition to allow JS to instantly update position for buttery smooth 120fps sync */
-    /* Only transition non-scroll properties if needed */
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
 }
 
-/* Adjust sizes for mobile */
-@media (max-width: 768px) {
-    .memory-item {
-        width: 250px;
-        height: 250px;
-        margin: 0 -50px;
-    }
+/* Revealed state (added via JS) */
+.memory-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover effects */
+.memory-item:hover {
+    transform: translateY(-5px); /* Slightly move up instead of full scale to keep layout stable */
+    box-shadow: 0 12px 25px rgba(255, 183, 3, 0.15); /* Subtle glow */
 }
 
 .memory-item img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
-    pointer-events: none; /* Don't interfere with dragging/scrolling */
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: brightness(0.9);
+}
+
+.memory-item:hover img {
+    transform: scale(1.03); /* Subtle zoom in image */
+    filter: brightness(1.1);
 }
 
 /* Text Block Overrides */
@@ -106,7 +110,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
-    z-index: 1; /* Keep text above background if any */
+    padding: 40px 20px; /* Give text blocks some padding since image handles its own height */
 }
 
 .memory-item.text-block h3 {
@@ -130,4 +134,10 @@ body {
     font-style: italic;
     font-size: 1.5rem;
     line-height: 1.4;
+}
+
+/* Specific fix: Don't zoom text block container on hover, only its box shadow */
+.memory-item.text-block:hover,
+.memory-item.quote-block:hover {
+    transform: translateY(-5px);
 }
