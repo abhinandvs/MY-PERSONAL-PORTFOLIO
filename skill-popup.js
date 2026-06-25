@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
             <div style="display: flex; gap: 15px; justify-content: center;">
-                <a href="tech-products.html" class="btn-primary">View All Details</a>
+                <a href="download.html" class="btn-primary">View Downloads</a>
             </div>
         `,
         'skills': `
